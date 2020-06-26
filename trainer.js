@@ -12,6 +12,7 @@ var totalMoves = 0;
 var correctMoves = 0;
 var selectedName = "";
 var selectedPhoto = "";
+var time;
 
 
 window.onload = function(){
@@ -73,6 +74,11 @@ function startTraining(){
    listItem.addEventListener("click", onUserClickPhoto);
    listPhotos.appendChild(listItem);
   }
+
+time = TIMEAMOUNT;
+timeTick = time * 0.01;
+timeLeft = time;
+intervalThing = window.setInterval(onTimerTick, 1000);
 }
 
 function onUserClickName(){
@@ -121,6 +127,17 @@ function onMatchTry(photoData){
     selectedPhoto = "";
     selectedName = "";
 
+  }
+}
+
+function onTimerTick(){
+  timeLeft--;
+  percentage = 100 + ((timeLeft - time) / time) * 100;
+  document.getElementById('progress').style.width = percentage + "%";
+
+  if (percentage < 1) {
+    alert('de tijd is op!');
+    clearInterval(intervalThing);
   }
 }
 
