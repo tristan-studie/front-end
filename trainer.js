@@ -10,6 +10,8 @@ const TIMEAMOUNT = localStorage.getItem('time');
 const PHOTOAMOUNT = localStorage.getItem('photo');
 var totalMoves = 0;
 var correctMoves = 0;
+var selectedName = "";
+var selectedPhoto = "";
 
 
 window.onload = function(){
@@ -71,6 +73,9 @@ function startTraining(){
 }
 
 function onUserClickName(){
+
+  selectedName.className = "list-group-item list-group-item-action";
+
   selectedName = this;
 
   this.classList.add('active');
@@ -79,6 +84,8 @@ function onUserClickName(){
 }
 
   function onUserClickPhoto(){
+    selectedPhoto.className = "list-group-item list-group-item-action";
+
   selectedPhoto = this;
   photoData = selectedPhoto.dataset.photo;
 
@@ -104,6 +111,13 @@ function onMatchTry(photoData){
     selectedName.classList.add('fade');
     selectedPhoto = "";
     selectedName = "";
+  }else{
+    selectedPhoto.className = "list-group-item list-group-item-action";
+    selectedName.className = "list-group-item list-group-item-action";
+
+    selectedPhoto = "";
+    selectedName = "";
+
   }
 }
 
