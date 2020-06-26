@@ -67,6 +67,9 @@ function startTraining(){
    listItem.dataset.photo = smoelen[i][0];
    listItem.classList.add("list-group-item");
    listItem.classList.add('list-group-item-action');
+   listItem.classList.add('img-fluid');
+   listItem.style.height = "200px";
+   listItem.style.width = "300px";
    listItem.addEventListener("click", onUserClickPhoto);
    listPhotos.appendChild(listItem);
   }
