@@ -1,3 +1,96 @@
+var smoelen = [
+  ["klaas", "images/groepsfoto.jpg" ],
+  ['test', ""],
+  ['test2', ''],
+  ['test3', ''],
+  ['test4', '']
+];
+
+const TIMEAMOUNT = localStorage.getItem('time');
+const PHOTOAMOUNT = localStorage.getItem('photo');
+var totalMoves = 0;
+var correctMoves = 0;
+
+
+window.onload = function(){
+
+  startTraining();
+}
+//Remember to add failsafe for when usersetting is higher then amount of photos
+function startTraining(){
+
+  var listNames = document.getElementById('nameList');
+  for (var i = 0; i < smoelen.length; i++) {
+
+   var listItem = document.createElement('a');
+   listItem.innerHTML = smoelen[i][0];
+   listItem.classList.add("list-group-item");
+   listItem.classList.add('list-group-item-action');
+   listItem.addEventListener("click", onUserClickName);
+   listNames.appendChild(listItem);
+
+
+
+  }
+  var listPhotos = document.getElementById('photoList');
+  for (var i = 0; i < smoelen.length; i++) {
+
+   var listItem = document.createElement('img');
+   listItem.src = smoelen[i][1];
+   listItem.dataset.photo = smoelen[i][0];
+   listItem.classList.add("list-group-item");
+   listItem.classList.add('list-group-item-action');
+   listItem.addEventListener("click", onUserClickPhoto);
+   listPhotos.appendChild(listItem);
+  }
+}
+
+function onUserClickName(){
+  selectedName = this;
+
+  this.classList.add('active');
+
+  onPlayerMove();
+}
+
+  function onUserClickPhoto(){
+  selectedPhoto = this;
+  photoData = selectedPhoto.dataset.photo;
+
+    this.classList.add('active');
+
+    onPlayerMove(photoData);
+  }
+
+function onPlayerMove(photoData){
+if(selectedName.innerHTML && photoData){
+    totalMoves++;
+      document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
+    onMatchTry(photoData);
+}
+}
+
+function onMatchTry(photoData){
+  if (photoData == selectedName.innerHTML) {
+
+    correctMoves++;
+      document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
+    selectedPhoto.classList.add('fade');
+    selectedName.classList.add('fade');
+    selectedPhoto = "";
+    selectedName = "";
+  }
+}
+
+// correctMoves.onchange = function(){
+//   document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
+// }
+
+
+
+
+
+
 // WHEN THE TRAINER LOADS/ON GAME START->
 // #2 fill list-group left with button elements with the names, in a random order (amount set in settings, #8)
 // #2 fill list-group right with img elements with the photos, in a random order (amount set in settings, #8)
