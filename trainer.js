@@ -1,9 +1,9 @@
 var smoelen = [
-  ["klaas", "images/groepsfoto.jpg" ],
-  ['test', ""],
-  ['test2', ''],
-  ['test3', ''],
-  ['test4', '']
+  ["Petar Stoskovic", "images/petar.jpg" ],
+  ['Lewis Montsma', "images/lewis.jpg"],
+  ['Stef Gronsveld', 'images/stef.jpg'],
+  ['Daniël Breedijk', 'images/daniel.jpg'],
+  ['Robin Polley', 'images/robin.jpg']
 ];
 
 const TIMEAMOUNT = localStorage.getItem('time');
