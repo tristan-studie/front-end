@@ -12,12 +12,29 @@ var totalMoves = 0;
 var correctMoves = 0;
 var selectedName = "";
 var selectedPhoto = "";
-var time;
-
 
 window.onload = function(){
 
+
   startTraining();
+  var timeTimer = new TrainerTimer(TIMEAMOUNT);
+  var timeObj = TrainerTimer.parse(TIMEAMOUNT);
+  format(timeObj.minutes, timeObj.seconds, timeObj.pureseconds);
+  timeTimer.onTick(format);
+timeTimer.start();
+function format(minutes, seconds, pureseconds) {
+     console.log(minutes + ':' + seconds + ':' + pureseconds);
+     minutes = minutes < 10 ? "0" + minutes : minutes;
+     seconds = seconds < 10 ? "0" + seconds : seconds;
+     percentage = 100 + ((pureseconds - TIMEAMOUNT) / TIMEAMOUNT) * 100;
+     document.getElementById('progress').style.width = percentage + "%";
+
+     if (percentage < 1) {
+       alert('de tijd is op!');
+     }
+ }
+
+
 }
 
 //FROM STACKOVERFLOW-> USED FOR TESTING UNTIL RANDOMIZATION FUNCTION DONE
@@ -75,10 +92,8 @@ function startTraining(){
    listPhotos.appendChild(listItem);
   }
 
-time = TIMEAMOUNT;
-timeTick = time * 0.01;
-timeLeft = time;
-intervalThing = window.setInterval(onTimerTick, 1000);
+
+
 }
 
 function onUserClickName(){
@@ -130,16 +145,60 @@ function onMatchTry(photoData){
   }
 }
 
-function onTimerTick(){
-  timeLeft--;
-  percentage = 100 + ((timeLeft - time) / time) * 100;
-  document.getElementById('progress').style.width = percentage + "%";
 
-  if (percentage < 1) {
-    alert('de tijd is op!');
-    clearInterval(intervalThing);
-  }
+
+function TrainerTimer(duration, granularity){
+  this.duration = duration;
+  this.granularity = granularity || 1000;
+  this.tickFtns = [];
+  this.running = false;
 }
+
+TrainerTimer.prototype.start = function(){
+  if (this.running){
+    return;
+  }
+  this.running = true;
+  var start = Date.now(),
+      that = this,
+      diff, obj;
+
+  (function timer(){
+    diff = that.duration - (((Date.now() - start) / 1000) | 0);
+    if (diff > 0){
+      setTimeout(timer, that.granularity);
+
+    }else{
+      diff = 0;
+      that.running = false;
+    }
+    obj = TrainerTimer.parse(diff);
+    that.tickFtns.forEach(function(ftn) {
+      ftn.call(this, obj.minutes, obj.seconds, obj.pureseconds);
+
+    }, that);
+
+  }());
+};
+TrainerTimer.prototype.onTick = function(ftn){
+
+  if (typeof ftn === 'function') {
+    this.tickFtns.push(ftn);
+
+  }
+  return this;
+};
+TrainerTimer.prototype.expired = function(){
+  return !this.running;
+};
+TrainerTimer.parse = function(seconds){
+  return{
+    'minutes': (seconds / 60) | 0,
+    'seconds': (seconds % 60) | 0,
+    'pureseconds': (seconds) | 0
+
+  };
+};
 
 // correctMoves.onchange = function(){
 //   document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
