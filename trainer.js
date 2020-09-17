@@ -15,13 +15,12 @@ var selectedPhoto = "";
 
 window.onload = function(){
 
-
   startTraining();
   var timeTimer = new TrainerTimer(TIMEAMOUNT);
   var timeObj = TrainerTimer.parse(TIMEAMOUNT);
   format(timeObj.minutes, timeObj.seconds, timeObj.pureseconds);
   timeTimer.onTick(format);
-timeTimer.start();
+  timeTimer.start();
 function format(minutes, seconds, pureseconds) {
      console.log(minutes + ':' + seconds + ':' + pureseconds);
      minutes = minutes < 10 ? "0" + minutes : minutes;
@@ -34,8 +33,6 @@ function format(minutes, seconds, pureseconds) {
        saveScore();
      }
  }
-
-
 }
 
 //FROM STACKOVERFLOW-> USED FOR TESTING UNTIL RANDOMIZATION FUNCTION DONE
@@ -54,11 +51,9 @@ function shuffle(array) {
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
-
   return array;
 }
 //END OF STACKOVERFLOW
-
 
 //Remember to add failsafe for when usersetting is higher then amount of photos
 function startTraining(){
@@ -73,8 +68,6 @@ function startTraining(){
    listItem.classList.add('list-group-item-action');
    listItem.addEventListener("click", onUserClickName);
    listNames.appendChild(listItem);
-
-
 
   }
   var listPhotos = document.getElementById('photoList');
@@ -93,45 +86,36 @@ function startTraining(){
    listPhotos.appendChild(listItem);
   }
 
-
-
 }
 
-function onUserClickName(){
+  function onUserClickName(){
 
   selectedName.className = "list-group-item list-group-item-action";
-
   selectedName = this;
-
   this.classList.add('active');
-
   onPlayerMove();
-}
+  }
 
   function onUserClickPhoto(){
-    selectedPhoto.className = "list-group-item list-group-item-action";
-
+  selectedPhoto.className = "list-group-item list-group-item-action";
   selectedPhoto = this;
   photoData = selectedPhoto.dataset.photo;
-
-    this.classList.add('active');
-
-    onPlayerMove(photoData);
+  this.classList.add('active');
+  onPlayerMove(photoData);
   }
 
 function onPlayerMove(photoData){
-if(selectedName.innerHTML && photoData){
+  if(selectedName.innerHTML && photoData){
     totalMoves++;
-      document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
+    document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
     onMatchTry(photoData);
-}
+  }
 }
 
 function onMatchTry(photoData){
   if (photoData == selectedName.innerHTML) {
-
     correctMoves++;
-      document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
+    document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
     selectedPhoto.classList.add('fade');
     selectedName.classList.add('fade');
     selectedPhoto = "";
@@ -139,10 +123,8 @@ function onMatchTry(photoData){
   }else{
     selectedPhoto.className = "list-group-item list-group-item-action";
     selectedName.className = "list-group-item list-group-item-action";
-
     selectedPhoto = "";
     selectedName = "";
-
   }
 }
 
@@ -150,7 +132,6 @@ function saveScore(){
   var dateNow = new Date();
   console.log(dateNow.toUTCString());
 }
-
 
 function TrainerTimer(duration, granularity){
   this.duration = duration;
@@ -208,11 +189,6 @@ TrainerTimer.parse = function(seconds){
 // correctMoves.onchange = function(){
 //   document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
 // }
-
-
-
-
-
 
 // WHEN THE TRAINER LOADS/ON GAME START->
 // #2 fill list-group left with button elements with the names, in a random order (amount set in settings, #8)

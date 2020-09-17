@@ -27,6 +27,20 @@ html[data-theme='dark']{
 body{
   background-color: var(--bg-color) !important;
 }
+
+header{
+  background-color: var(--bg-color);
+}
+
+footer{
+  background-color: var(--bg-color);
+  color:var(--primary-color);
+}
+
+.button-background{
+  color: var(--bg-color);
+}
+
 .button-text{
   color: var(--primary-color);
 }
