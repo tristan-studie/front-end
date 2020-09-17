@@ -22,5 +22,5 @@ function setValue(){
   document.getElementById('photo').value = currentPhoto;
 }
 
-timeForm.onchange = populateStorage;
-photoForm.onchange = populateStorage;
+timeForm.onchange = populateStorage();
+photoForm.onchange = populateStorage();

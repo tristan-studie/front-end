@@ -31,6 +31,7 @@ function format(minutes, seconds, pureseconds) {
 
      if (percentage < 1) {
        alert('de tijd is op!');
+       saveScore();
      }
  }
 
@@ -145,6 +146,10 @@ function onMatchTry(photoData){
   }
 }
 
+function saveScore(){
+  var dateNow = new Date();
+  console.log(dateNow.toUTCString());
+}
 
 
 function TrainerTimer(duration, granularity){
@@ -153,7 +158,7 @@ function TrainerTimer(duration, granularity){
   this.tickFtns = [];
   this.running = false;
 }
-
+//Timer for the trainer
 TrainerTimer.prototype.start = function(){
   if (this.running){
     return;

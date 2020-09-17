@@ -11,3 +11,22 @@
    opacity: 0%;
  }
 }
+
+html[data-theme='light']{
+  --bg-color: white;
+  --primary-color:;
+  --secondary-color:;
+}
+
+html[data-theme='dark']{
+  --bg-color: #1a1a2e;
+  --primary-color: #0f3460;
+  --secondary-color: #e94560;
+}
+
+body{
+  background-color: var(--bg-color) !important;
+}
+.button-text{
+  color: var(--primary-color);
+}
