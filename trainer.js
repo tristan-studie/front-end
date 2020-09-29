@@ -29,8 +29,8 @@ function format(minutes, seconds, pureseconds) {
      document.getElementById('progress').style.width = percentage + "%";
 
      if (percentage < 1) {
-       alert('de tijd is op!');
        saveScore();
+       alert('de tijd is op!');
      }
  }
 }
@@ -130,7 +130,12 @@ function onMatchTry(photoData){
 
 function saveScore(){
   var dateNow = new Date();
+  var score = '200';
   console.log(dateNow.toUTCString());
+  var scoreboard = JSON.parse(localStorage.getItem('scores'));
+  scoreboard.unshift({score: score, date: dateNow});
+  localStorage.setItem('scores', JSON.stringify(scoreboard));
+
 }
 
 function TrainerTimer(duration, granularity){
