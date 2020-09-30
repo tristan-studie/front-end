@@ -12,6 +12,7 @@ var totalMoves = 0;
 var correctMoves = 0;
 var selectedName = "";
 var selectedPhoto = "";
+var nameList = [];
 
 window.onload = function(){
 
@@ -85,7 +86,6 @@ function startTraining(){
    listItem.addEventListener("click", onUserClickPhoto);
    listPhotos.appendChild(listItem);
   }
-
 }
 
   function onUserClickName(){
@@ -93,7 +93,7 @@ function startTraining(){
   selectedName.className = "list-group-item list-group-item-action";
   selectedName = this;
   this.classList.add('active');
-  onPlayerMove();
+  onPlayerMove(photoData);
   }
 
   function onUserClickPhoto(){
@@ -115,16 +115,21 @@ function onPlayerMove(photoData){
 function onMatchTry(photoData){
   if (photoData == selectedName.innerHTML) {
     correctMoves++;
+    nameList.unshift({name: selectedName.innerHTML, correct: true});
     document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
     selectedPhoto.classList.add('fade');
     selectedName.classList.add('fade');
     selectedPhoto = "";
     selectedName = "";
   }else{
+    nameList.unshift({name: selectedName.innerHTML, correct: false});
     selectedPhoto.className = "list-group-item list-group-item-action";
     selectedName.className = "list-group-item list-group-item-action";
-    selectedPhoto = "";
-    selectedName = "";
+    selectedName.style.border = '3px solid red';
+    selectedPhoto.style.border = '3px solid red';
+    setTimeout(function(){selectedName.style.border = ""; selectedPhoto.style.border = "";    selectedPhoto = "";
+        selectedName = "";}, 500);
+
   }
 }
 
@@ -132,10 +137,16 @@ function saveScore(){
   var dateNow = new Date();
   var score = '200';
   console.log(dateNow.toUTCString());
+  console.log(nameList.toString());
   var scoreboard = JSON.parse(localStorage.getItem('scores'));
   scoreboard.unshift({score: score, date: dateNow});
   localStorage.setItem('scores', JSON.stringify(scoreboard));
 
+}
+
+function saveNames(){
+  var nameHistory = JSON.parse(localStorage.getItem('names'));
+  namehistory.unshift({})
 }
 
 function TrainerTimer(duration, granularity){
