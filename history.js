@@ -22,7 +22,6 @@ function showBoard(){
     entry.innerHTML = (typeof(scoreAmount) != 'undefined' ? scoreAmount : "") + " | " + new Date(scoreDate);
     document.getElementById('historyContainer').appendChild(entry);
   }
-
 }
 }
 
@@ -93,9 +92,5 @@ function sortBoard(){
 }
 
 sortForm.onchange = sortBoard;
-
 showBoard();
 sortBoard();
-
-
-//On game-end: calculate score-> save score to history with score, date and time->if more than X scores, delete oldest record and insert new score.

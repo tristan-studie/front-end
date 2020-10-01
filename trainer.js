@@ -65,9 +65,7 @@ function shuffle(array) {
   }
   return array;
 }
-//END OF STACKOVERFLOW
-
-//Remember to add failsafe for when usersetting is higher then amount of photos
+//END
 function startTraining(){
 
   var listNames = document.getElementById('nameList');
@@ -77,7 +75,6 @@ function startTraining(){
     smoelenArray.unshift(smoelen[i]);
   }
   for (var i = 0; i < smoelenArray.length; i++) {
-
    var listItem = document.createElement('a');
    listItem.innerHTML = smoelenArray[i][0];
    listItem.classList.add("list-group-item");
@@ -87,9 +84,8 @@ function startTraining(){
 
   }
   var listPhotos = document.getElementById('photoList');
-  // shuffle(smoelen);
+  shuffle(smoelenArray);
   for (var i = 0; i < smoelenArray.length; i++) {
-    shuffle(smoelenArray);
    var listItem = document.createElement('img');
    listItem.src = smoelenArray[i][1];
    listItem.dataset.photo = smoelenArray[i][0];
@@ -104,7 +100,6 @@ function startTraining(){
 }
 
   function onUserClickName(){
-
   selectedName.className = "list-group-item list-group-item-action";
   selectedName = this;
   nameSelected = true;
@@ -124,7 +119,6 @@ function startTraining(){
 function onPlayerMove(photoData){
   if(nameSelected && photoSelected){
     totalMoves++;
-    document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
     onMatchTry(photoData);
   }
 }
@@ -132,15 +126,13 @@ function onPlayerMove(photoData){
 function onMatchTry(photoData){
   if (photoData == selectedName.innerHTML) {
     correctMoves++;
-    nameList.unshift({name: selectedName.innerHTML, correct: true});
-    document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
     selectedPhoto.classList.add('fade');
     selectedName.classList.add('fade');
   }else{
-    nameList.unshift({name: selectedName.innerHTML, correct: false});
     selectedPhoto.className = "list-group-item list-group-item-action";
     selectedName.className = "list-group-item list-group-item-action";
   }
+  document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
   selectedPhoto = "";
   selectedName = "";
   nameSelected = false;
@@ -150,7 +142,6 @@ function onMatchTry(photoData){
 function saveScore(){
   var dateNow = new Date();
   var score = '200';
-  console.log(dateNow.toUTCString());
   if (!localStorage.getItem('scores')) {
     score = [{score: '200', date: dateNow}];
     localStorage.setItem('scores', JSON.stringify(score));
@@ -160,8 +151,6 @@ function saveScore(){
     scoreboard.unshift({score: score, date: dateNow});
     localStorage.setItem('scores', JSON.stringify(scoreboard));
   }
-
-
 }
 
 function saveNames(){
@@ -203,10 +192,8 @@ TrainerTimer.prototype.start = function(){
   }());
 };
 TrainerTimer.prototype.onTick = function(ftn){
-
   if (typeof ftn === 'function') {
     this.tickFtns.push(ftn);
-
   }
   return this;
 };
@@ -218,25 +205,5 @@ TrainerTimer.parse = function(seconds){
     'minutes': (seconds / 60) | 0,
     'seconds': (seconds % 60) | 0,
     'pureseconds': (seconds) | 0
-
   };
 };
-
-
-// WHEN THE TRAINER LOADS/ON GAME START->
-// #2 fill list-group left with button elements with the names, in a random order (amount set in settings, #8)
-// #2 fill list-group right with img elements with the photos, in a random order (amount set in settings, #8)
-// #4 Show amount of match-tries and amount of successful matches in the top corner of the screen.
-// #5 Show countdown timer on top of the screen. the timer has the time from the settings(#7), and starts counting down.
-
-// WRONG TRY->
-// Deselect both the name and photo [maybe selection border flashes red for 1 second before deselection?]
-
-// ON ALL MATCHES (WIN)->
-// Save score + date/time
-// Show alert with score, after user confirm, return to home screen
-
-//ON END OF TIME(NO WIN)->
-// #5 Don't allow any new user input with the names/photos
-// Save score + date/time
-// Show alert with score, after user confirm, return to home screen
