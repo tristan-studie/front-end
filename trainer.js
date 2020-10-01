@@ -11,7 +11,7 @@ var smoelen = [
   ["Wouter ter Maat", "images/wouter.jpg"],
   ["Michaël Parkinson", "images/michael.jpg"],
   ["Robbert Andringa", "images/robbert.jpg"],
-  ["Just Dronkers", "images/just.jpg"]
+  ["Just Dronkers", "images/just.jpg"],
 ];
 
 const TIMEAMOUNT = localStorage.getItem('time');
@@ -73,6 +73,8 @@ function startTraining(){
   for (var i = 0; i < PHOTOAMOUNT ; i++){
     smoelenArray.unshift(smoelen[i]);
   }
+
+
   for (var i = 0; i < smoelenArray.length; i++) {
    var listItem = document.createElement('a');
    listItem.innerHTML = smoelenArray[i][0];
@@ -81,6 +83,9 @@ function startTraining(){
    listItem.addEventListener("click", onUserClickName);
    listNames.appendChild(listItem);
 
+  }
+  for (var i = 0; i < smoelenArray.length; i++) {
+    nameList.unshift({name: smoelenArray[i][0], correct: false});
   }
   var listPhotos = document.getElementById('photoList');
   shuffle(smoelenArray);
@@ -97,6 +102,7 @@ function startTraining(){
    listItem.addEventListener("click", onUserClickPhoto);
    listPhotos.appendChild(listItem);
   }
+
 }
 
   function onUserClickName(){
@@ -126,6 +132,13 @@ function onPlayerMove(photoData){
 function onMatchTry(photoData){
   if (photoData == selectedName.innerHTML) {
     correctMoves++;
+    for (var i = 0; i < nameList.length; i++) {
+      if (selectedName.innerHTML == nameList[i]['name']){
+        nameList[i]['correct'] = true;
+        console.log(JSON.stringify(nameList[i]));
+      }
+    }
+
     selectedPhoto.classList.add('fade');
     selectedName.classList.add('fade');
   }else{
