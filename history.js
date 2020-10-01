@@ -43,6 +43,7 @@ function printScores(scoreboard){
     var scoreDate = scoreboard[i].date;
     var entry = document.createElement('li');
     entry.innerHTML = (typeof(scoreAmount) != 'undefined' ? scoreAmount : "") + " | " + new Date(scoreDate);
+    entry.classList.add('list-group-item');
     document.getElementById('historyContainer').appendChild(entry);
   }
 }

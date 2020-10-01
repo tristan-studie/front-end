@@ -8,22 +8,26 @@
     <title></title>
   </head>
   <body>
+<div class="container-fluid">
 
-    <div class="progress">
-      <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="100" style="width: 100%" ></div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="progress">
+        <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="100" style="width: 100%" ></div>
+      </div>
     </div>
-
-    <section class="row">
-      <div class="col-sm" ></div>
-      <div class="col-sm" id="scoreboard">0 out of 0</div>
-      <div class="col-sm" ></div>
+  </div>
+    <section class="row text-center">
+      <div class="col-sm-12" id="scoreboard">0 out of 0</div>
     </section>
 
-    <section class="trainer row">
-      <div id="nameList" class="list-group col-sm"></div>
-      <div id="photoList" class="col-sm"></div>
+    <section class="trainer row ">
+      <div id="nameList" class="list-group col-sm-3"></div>
+      <div id="photoList" class="col-sm-9 d-flex"></div>
     </section>
 
+</div>
     <script type="text/javascript" src="trainer.js"></script>
+
   </body>
 </html>
