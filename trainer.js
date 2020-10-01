@@ -151,10 +151,16 @@ function saveScore(){
   var dateNow = new Date();
   var score = '200';
   console.log(dateNow.toUTCString());
-  console.log(nameList.toString());
-  var scoreboard = JSON.parse(localStorage.getItem('scores'));
-  scoreboard.unshift({score: score, date: dateNow});
-  localStorage.setItem('scores', JSON.stringify(scoreboard));
+  if (!localStorage.getItem('scores')) {
+    score = [{score: '200', date: dateNow}];
+    localStorage.setItem('scores', JSON.stringify(score));
+
+  }else {
+    var scoreboard = JSON.parse(localStorage.getItem('scores'));
+    scoreboard.unshift({score: score, date: dateNow});
+    localStorage.setItem('scores', JSON.stringify(scoreboard));
+  }
+
 
 }
 
