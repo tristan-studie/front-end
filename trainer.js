@@ -70,7 +70,7 @@ function startTraining(){
   var listNames = document.getElementById('nameList');
   shuffle(smoelen);
   console.log(smoelen);
-  for (var i = 0; i < PHOTOAMOUNT; i++){
+  for (var i = 0; i < PHOTOAMOUNT ; i++){
     smoelenArray.unshift(smoelen[i]);
   }
   for (var i = 0; i < smoelenArray.length; i++) {
@@ -91,6 +91,8 @@ function startTraining(){
    listItem.classList.add("list-group-item");
    listItem.classList.add('list-group-item-action');
    listItem.classList.add('img-fluid');
+   listItem.style.maxHeight = "200px";
+   listItem.style.maxWidth = "200px";
    listItem.style.minWidth= "0";
    listItem.addEventListener("click", onUserClickPhoto);
    listPhotos.appendChild(listItem);
