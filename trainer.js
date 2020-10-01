@@ -91,8 +91,7 @@ function startTraining(){
    listItem.classList.add("list-group-item");
    listItem.classList.add('list-group-item-action');
    listItem.classList.add('img-fluid');
-   listItem.style.height = "75%";
-   listItem.style.width = "75%";
+   listItem.style.minWidth= "0";
    listItem.addEventListener("click", onUserClickPhoto);
    listPhotos.appendChild(listItem);
   }
