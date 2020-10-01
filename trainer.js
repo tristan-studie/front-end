@@ -1,9 +1,17 @@
 var smoelen = [
-  ["Petar Stoskovic", "images/petar.jpg" ],
-  ['Lewis Montsma', "images/lewis.jpg"],
-  ['Stef Gronsveld', 'images/stef.jpg'],
-  ['Daniël Breedijk', 'images/daniel.jpg'],
-  ['Robin Polley', 'images/robin.jpg']
+  ["Wessel Keemink", "images/wessel.jpg" ],
+  ["Maarten van Garderen", "images/maarten.jpg"],
+  ["Thijs ter Horst", "images/thijs.jpg"],
+  ["Luuc van der Ent", "images/luuc.jpg"],
+  ["Gijs Jorna", "images/gijs.jpg"],
+  ["Fabian Plak", "images/fabian.jpg"],
+  ["Ewoud Gommans", "images/ewoud.jpg"],
+  ["Nimir Abdelaziz", "images/nimir.jpg"],
+  ["Gijs van Solkema", "images/gijs2.jpg"],
+  ["Wouter ter Maat", "images/wouter.jpg"],
+  ["Michaël Parkinson", "images/michael.jpg"],
+  ["Robbert Andringa", "images/robbert.jpg"],
+  ["Just Dronkers", "images/just.jpg"]
 ];
 
 const TIMEAMOUNT = localStorage.getItem('time');
