@@ -145,17 +145,11 @@ function saveScore(){
   if (!localStorage.getItem('scores')) {
     score = [{score: '200', date: dateNow}];
     localStorage.setItem('scores', JSON.stringify(score));
-
   }else {
     var scoreboard = JSON.parse(localStorage.getItem('scores'));
     scoreboard.unshift({score: score, date: dateNow});
     localStorage.setItem('scores', JSON.stringify(scoreboard));
   }
-}
-
-function saveNames(){
-  var nameHistory = JSON.parse(localStorage.getItem('names'));
-  namehistory.unshift({})
 }
 
 function TrainerTimer(duration, granularity){
