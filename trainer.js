@@ -22,6 +22,8 @@ var selectedName = "";
 var selectedPhoto = "";
 var nameList = [];
 var smoelenArray = [];
+var nameSelected = false;
+var photoSelected = false;
 
 window.onload = function(){
 
@@ -105,6 +107,7 @@ function startTraining(){
 
   selectedName.className = "list-group-item list-group-item-action";
   selectedName = this;
+  nameSelected = true;
   this.classList.add('active');
   onPlayerMove(photoData);
   }
@@ -112,13 +115,14 @@ function startTraining(){
   function onUserClickPhoto(){
   selectedPhoto.className = "list-group-item list-group-item-action";
   selectedPhoto = this;
+  photoSelected = true;
   photoData = selectedPhoto.dataset.photo;
   this.classList.add('active');
   onPlayerMove(photoData);
   }
 
 function onPlayerMove(photoData){
-  if(selectedName.innerHTML && photoData){
+  if(nameSelected && photoSelected){
     totalMoves++;
     document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
     onMatchTry(photoData);
@@ -132,18 +136,15 @@ function onMatchTry(photoData){
     document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
     selectedPhoto.classList.add('fade');
     selectedName.classList.add('fade');
-    selectedPhoto = "";
-    selectedName = "";
   }else{
     nameList.unshift({name: selectedName.innerHTML, correct: false});
     selectedPhoto.className = "list-group-item list-group-item-action";
     selectedName.className = "list-group-item list-group-item-action";
-    selectedName.style.border = '3px solid red';
-    selectedPhoto.style.border = '3px solid red';
-    setTimeout(function(){selectedName.style.border = ""; selectedPhoto.style.border = "";    selectedPhoto = "";
-        selectedName = "";}, 500);
-
   }
+  selectedPhoto = "";
+  selectedName = "";
+  nameSelected = false;
+  photoSelected = false;
 }
 
 function saveScore(){
