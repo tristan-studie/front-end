@@ -34,15 +34,14 @@ window.onload = function(){
   timeTimer.onTick(format);
   timeTimer.start();
 function format(minutes, seconds, pureseconds) {
-     console.log(minutes + ':' + seconds + ':' + pureseconds);
      minutes = minutes < 10 ? "0" + minutes : minutes;
      seconds = seconds < 10 ? "0" + seconds : seconds;
      percentage = 100 + ((pureseconds - TIMEAMOUNT) / TIMEAMOUNT) * 100;
      document.getElementById('progress').style.width = percentage + "%";
-
      if (percentage < 1) {
        saveScore();
        alert('de tijd is op!');
+       window.location.href= "http://localhost/pokebattle/front-end/index.html";
      }
  }
 }
