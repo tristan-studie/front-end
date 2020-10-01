@@ -21,6 +21,7 @@ var correctMoves = 0;
 var selectedName = "";
 var selectedPhoto = "";
 var nameList = [];
+var smoelenArray = [];
 
 window.onload = function(){
 
@@ -69,10 +70,14 @@ function startTraining(){
 
   var listNames = document.getElementById('nameList');
   shuffle(smoelen);
-  for (var i = 0; i < smoelen.length; i++) {
+  console.log(smoelen);
+  for (var i = 0; i < PHOTOAMOUNT; i++){
+    smoelenArray.unshift(smoelen[i]);
+  }
+  for (var i = 0; i < smoelenArray.length; i++) {
 
    var listItem = document.createElement('a');
-   listItem.innerHTML = smoelen[i][0];
+   listItem.innerHTML = smoelenArray[i][0];
    listItem.classList.add("list-group-item");
    listItem.classList.add('list-group-item-action');
    listItem.addEventListener("click", onUserClickName);
@@ -80,12 +85,12 @@ function startTraining(){
 
   }
   var listPhotos = document.getElementById('photoList');
-  shuffle(smoelen);
-  for (var i = 0; i < smoelen.length; i++) {
-
+  // shuffle(smoelen);
+  for (var i = 0; i < smoelenArray.length; i++) {
+    shuffle(smoelenArray);
    var listItem = document.createElement('img');
-   listItem.src = smoelen[i][1];
-   listItem.dataset.photo = smoelen[i][0];
+   listItem.src = smoelenArray[i][1];
+   listItem.dataset.photo = smoelenArray[i][0];
    listItem.classList.add("list-group-item");
    listItem.classList.add('list-group-item-action');
    listItem.classList.add('img-fluid');
