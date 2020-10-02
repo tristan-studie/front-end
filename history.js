@@ -2,7 +2,7 @@ var sortForm = document.getElementById('sortOptions');
 
 function showBoard(){
   if (!localStorage.getItem('scores')) {
-    alert('no scores saved yet. Use the trainer to save a score.');
+    alert('No scores saved yet. Use the trainer to save a score.');
     window.location.href= "http://localhost/pokebattle/front-end/index.html";
   } else {
     document.getElementById('sortOptions').value = 'scoreDesc';

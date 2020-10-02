@@ -11,7 +11,7 @@ var smoelen = [
   ["Wouter ter Maat", "images/wouter.jpg"],
   ["Michaël Parkinson", "images/michael.jpg"],
   ["Robbert Andringa", "images/robbert.jpg"],
-  ["Just Dronkers", "images/just.jpg"],
+  ["Just Dronkers", "images/just.jpg"]
 ];
 
 const TIMEAMOUNT = localStorage.getItem('time');
@@ -85,7 +85,7 @@ function startTraining(){
 
   }
   for (var i = 0; i < smoelenArray.length; i++) {
-    nameList.unshift({name: smoelenArray[i][0], correct: false});
+    nameList.unshift({name: smoelenArray[i][0], correct: false, photo: smoelenArray[i][1]});
   }
   var listPhotos = document.getElementById('photoList');
   shuffle(smoelenArray);
@@ -153,6 +153,7 @@ function onMatchTry(photoData){
 }
 
 function saveScore(){
+  savePeople();
   var dateNow = new Date();
   var score = '200';
   if (!localStorage.getItem('scores')) {
@@ -163,6 +164,18 @@ function saveScore(){
     scoreboard.unshift({score: score, date: dateNow});
     localStorage.setItem('scores', JSON.stringify(scoreboard));
   }
+}
+
+function savePeople(){
+  var people;
+    if (!localStorage.getItem('names')) {
+      people = [nameList];
+      localStorage.setItem('names', JSON.stringify(people));
+    }else {
+      var peoples = JSON.parse(localStorage.getItem('names'));
+      peoples.unshift(nameList);
+      localStorage.setItem('names', JSON.stringify(peoples));
+    }
 }
 
 function TrainerTimer(duration, granularity){
