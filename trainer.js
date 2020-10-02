@@ -141,6 +141,8 @@ function onMatchTry(photoData){
 
     selectedPhoto.classList.add('fade');
     selectedName.classList.add('fade');
+    selectedName.removeEventListener("click", onUserClickName);
+    selectedPhoto.removeEventListener("click", onUserClickPhoto);
   }else{
     selectedPhoto.className = "list-group-item list-group-item-action";
     selectedName.className = "list-group-item list-group-item-action";
