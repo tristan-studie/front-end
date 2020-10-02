@@ -13,7 +13,6 @@ function calculateNames(){
 
   for (var i = 0; i < 5; i++) { // last 5 games
     for (var iq = 0; iq < names[i].length; iq++) { //all names from last 5 games
-      //if (names[i][iq]['correct'] == true) {
         if (JSON.stringify(nameCount).includes(JSON.stringify(names[i][iq]['name']))) {
           for (var ir = 0; ir < nameCount.length; ir++) {
             if (JSON.stringify(nameCount[ir]['name']) == JSON.stringify(names[i][iq]['name'])) {
@@ -33,10 +32,7 @@ function calculateNames(){
 
         }
         }
-      //}
-
       }
-
   }
   nameCount = nameCount.sort(function(a,b){return a.score - b.score});
   console.log(nameCount);

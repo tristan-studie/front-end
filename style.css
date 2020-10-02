@@ -1,6 +1,5 @@
 .fade{
   animation: fader 0.5s;
-
 }
 
 @keyframes fader {
@@ -13,32 +12,23 @@
 }
 
 html[data-theme='light']{
-  --bg-color: white;
-  --primary-color:;
-  --secondary-color:;
+  --bg-color: default;
+  --primary-color: default;
+  --secondary-color: default;
 }
 
 html[data-theme='dark']{
   --bg-color: #1a1a2e;
-  --primary-color: #0f3460;
+  --primary-color: #0f3460 ;
   --secondary-color: #e94560;
 }
 
 body{
+  background-color: var(--bg-color);
+}
+
+.btn-primary{
   background-color: var(--bg-color) !important;
-}
-
-header{
-  background-color: var(--bg-color);
-}
-
-footer{
-  background-color: var(--bg-color);
-  color:var(--primary-color);
-}
-
-.button-background{
-  color: var(--bg-color);
 }
 
 .button-text{
