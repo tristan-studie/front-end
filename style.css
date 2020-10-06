@@ -1,36 +1,43 @@
-.fade{
+.listItem {
+  max-height: 200px;
+  max-width: 200px;
+  min-width: 0;
+}
+
+.fade {
   animation: fader 0.5s;
 }
 
 @keyframes fader {
- 0%{
-   opacity: 100%;
- }
- 100%{
-   opacity: 0%;
- }
+  0% {
+    opacity: 100%;
+  }
+
+  100% {
+    opacity: 0%;
+  }
 }
 
-html[data-theme='light']{
+html[data-theme='light'] {
   --bg-color: default;
   --primary-color: default;
   --secondary-color: default;
 }
 
-html[data-theme='dark']{
+html[data-theme='dark'] {
   --bg-color: #1a1a2e;
-  --primary-color: #0f3460 ;
+  --primary-color: #0f3460;
   --secondary-color: #e94560;
 }
 
-body{
+body {
   background-color: var(--bg-color);
 }
 
-.btn-primary{
-  background-color: var(--bg-color) !important;
+.btn-primary {
+  background-color: var(--bg-color);
 }
 
-.button-text{
+.button-text {
   color: var(--primary-color);
 }

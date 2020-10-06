@@ -1,30 +1,31 @@
 var timeForm = document.getElementById('time');
 var photoForm = document.getElementById('photo');
 var themeForm = document.getElementById('themes');
+var currentTime, currentPhoto, currentTheme;
 
+//Check if settings exist in localStorage, If not => call populateStorage(), Else => call setValue()
+(!localStorage.getItem('time') || !localStorage.getItem('photo') || !localStorage.getItem('themes')) ? populateStorage() : setValue();
 
-if(!localStorage.getItem('time')|| !localStorage.getItem('photo') || !localStorage.getItem('themes')){
-  populateStorage();
-}else{
-  setValue();
-}
+//Populate the localStorage with settings
 function populateStorage() {
-  localStorage.setItem('time', document.getElementById('time').value);
-  localStorage.setItem('photo', document.getElementById('photo').value);
-  localStorage.setItem('themes', document.getElementById('themes').value);
+  localStorage.setItem('time', timeForm.value);
+  localStorage.setItem('photo', photoForm.value);
+  localStorage.setItem('themes', themeForm.value);
   setValue();
 }
 
+//Get the existing settings from the localStorage
 function setValue(){
-  var currentTime = localStorage.getItem('time');
-  var currentPhoto = localStorage.getItem('photo');
-  var currentTheme = localStorage.getItem('themes');
+  currentTime = localStorage.getItem('time');
+  currentPhoto = localStorage.getItem('photo');
+  currentTheme = localStorage.getItem('themes');
 
-  document.getElementById('time').value = currentTime;
-  document.getElementById('photo').value = currentPhoto;
-  document.getElementById('themes').value = currentTheme;
+  timeForm.value = currentTime;
+  photoForm.value = currentPhoto;
+  themeForm.value = currentTheme;
 }
 
+//When user changes settings, call populateStorage()
 timeForm.onchange = populateStorage;
 photoForm.onchange = populateStorage;
 themeForm.onchange = populateStorage;

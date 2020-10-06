@@ -1,57 +1,42 @@
-function showNames(){
-  if (!localStorage.getItem('names')) {
-    alert('No names saved yet. Use the trainer to save a score');
-    window.location.href = 'http://localhost/pokebattle/front-end/index.html';
-  }else {
-    calculateNames();
-  }
+var names = JSON.parse(localStorage.getItem('names'));
+var nameCount = [];
+var figureEntry, entry, entryText;
+
+window.onload = function(){
+  (!localStorage.getItem('names')) ? (alert("No names saved yet. Use the trainer to save a score"), window.location.href= "./index.html") : calculateNames();
 }
-  var nameCount=[];
-  var names = JSON.parse(localStorage.getItem('names'));
 
 function calculateNames(){
-
-  for (var i = 0; i < 5; i++) { // last 5 games
-    for (var iq = 0; iq < names[i].length; iq++) { //all names from last 5 games
-        if (JSON.stringify(nameCount).includes(JSON.stringify(names[i][iq]['name']))) {
-          for (var ir = 0; ir < nameCount.length; ir++) {
-            if (JSON.stringify(nameCount[ir]['name']) == JSON.stringify(names[i][iq]['name'])) {
-              if (names[i][iq]['correct'] == true) {
-              nameCount[ir]['score'] += 1;
-            }else {
-              nameCount[ir]['score'] += 0;
-            }
+  for (let i = 0; i < 5 && i < names.length; i++) { //loop through last 5 games
+    for (let j = 0; j < names[i].length; j++) { //For every name
+      let playerName = names[i][j]['name'];
+        if (JSON.stringify(nameCount).includes(JSON.stringify(playerName))) { //Check if nameCount alredy has a record of the playerName
+          for (let k = 0; k < nameCount.length; k++) { //For all names in nameCount
+            if (JSON.stringify(nameCount[k]['name']) == JSON.stringify(playerName)) { //Check if nameCount name is the same as the playerName
+              (names[i][j]['correct']) ? nameCount[k]['score'] += 1 : nameCount[k]['score'] += 0;
             }
           }
         }else{
-          if (names[i][iq]['correct'] == true) {
-
-          nameCount.unshift({name: names[i][iq]['name'], score: 1, photo: names[i][iq]['photo']});
-        }else {
-          nameCount.unshift({name: names[i][iq]['name'], score: 0, photo: names[i][iq]['photo']});
-
+          (names[i][j]['correct']) ? nameCount.unshift({name: playerName, score : 1, photo: names[i][j]['photo']})
+          : nameCount.unshift({name: playerName, score: 0, photo: names[i][j]['photo']});
         }
-        }
-      }
+    }
   }
   nameCount = nameCount.sort(function(a,b){return a.score - b.score});
-  console.log(nameCount);
   printNames(nameCount);
-
 }
 
 function printNames(nameCount){
-for (var i = 0; i < 3; i++) {
-  var figureEntry = document.createElement('figure');
-  nameList.appendChild(figureEntry);
+  for (let i = 0; i < 3; i++) {
+    figureEntry = document.createElement('figure');
+    nameList.appendChild(figureEntry);
 
-  var entry = document.createElement('img');
-  entry.src = nameCount[i]['photo'];
-  figureEntry.appendChild(entry);
+    entry = document.createElement('img');
+    entry.src = nameCount[i]['photo'];
+    figureEntry.appendChild(entry);
 
-  var entryText = document.createElement('figcaption');
-  entryText.innerHTML = nameCount[i]['name'];
-  figureEntry.appendChild(entryText);
+    entryText = document.createElement('figcaption');
+    entryText.innerHTML = nameCount[i]['name'];
+    figureEntry.appendChild(entryText);
+  }
 }
-}
-showNames();

@@ -1,53 +1,35 @@
-var sortForm = document.getElementById('sortOptions');
+const SORTFORM = document.getElementById('sortOptions');
+const HISTORYCONTAINER = document.getElementById('historyContainer');
+var scoreboard = JSON.parse(localStorage.getItem('scores'));
+var sortSetting, scoreAmount, scoreDate, entry;
 
-function showBoard(){
-  if (!localStorage.getItem('scores')) {
-    alert('No scores saved yet. Use the trainer to save a score.');
-    window.location.href= "http://localhost/pokebattle/front-end/index.html";
-  } else {
-    document.getElementById('sortOptions').value = 'scoreDesc';
-    var scoreboard = JSON.parse(localStorage.getItem('scores'));
-    scoreboard = scoreboard.sort(function(a,b){return a.score + b.score});
-    printScores(scoreboard);
-}
+//Onload -> check if there are existing scores saved. If found => call sortBoard(); Else => Notify user and redirect to index
+window.onload = function(){
+  (!localStorage.getItem('scores')) ? (alert('No scores saved yet. Use the trainer to save a score.'), window.location.href= "./index.html") : sortBoard();
 }
 
+//When the user changes the sort setting, call sortBoard()
+SORTFORM.onchange = sortBoard;
+
+//Sort the bord based on the sort setting set by the user
 function sortBoard(){
-  var sortSetting = document.getElementById('sortOptions').value;
-  document.getElementById('historyContainer').innerHTML = '';
-  var scoreboard = JSON.parse(localStorage.getItem('scores'));
-  switch (sortSetting) {
-    case 'dateAsc':
-    scoreboard = scoreboard.sort(function(a,b){return Date.parse(a.date) - Date.parse(b.date)});
-    printScores(scoreboard);
-      break;
-    case 'dateDesc':
-    scoreboard = scoreboard.sort(function(a,b){return Date.parse(b.date) - Date.parse(a.date)});
-    printScores(scoreboard);
-      break;
-    case 'scoreAsc':
-    scoreboard = scoreboard.sort(function(a,b){return a.score - b.score});
-    printScores(scoreboard);
-      break;
-    case 'scoreDesc':
-    scoreboard = scoreboard.sort(function(a,b){return b.score - a.score});
-    printScores(scoreboard);
-      break;
-  default:
-  }
+  sortSetting = SORTFORM.value;
+  (sortSetting == 'dateAsc') ? scoreboard = scoreboard.sort(function(a,b){return Date.parse(a.date) - Date.parse(b.date)})
+  : (sortSetting == 'dateDesc') ? scoreboard.sort(function(a,b){return Date.parse(b.date) - Date.parse(a.date)})
+  : (sortSetting == 'scoreAsc') ? scoreboard.sort(function(a,b){return a.score - b.score})
+  : scoreboard = scoreboard.sort(function(a,b){return b.score - a.score});
+  printScores(scoreboard);
 }
 
+//Print the (sorted) scores to the scoreboard
 function printScores(scoreboard){
-  for (var i = 0; i < scoreboard.length || 10; i++) {
-    var scoreAmount = scoreboard[i].score;
-    var scoreDate = scoreboard[i].date;
-    var entry = document.createElement('li');
-    entry.innerHTML = (typeof(scoreAmount) != 'undefined' ? scoreAmount : "") + " | " + new Date(scoreDate);
+  HISTORYCONTAINER.innerHTML = '';
+  for (let i = 0;  i < 10 && i < scoreboard.length; i++) {
+    scoreAmount = scoreboard[i].score;
+    scoreDate = scoreboard[i].date;
+    entry = document.createElement('li');
+    entry.innerHTML = scoreAmount + " | " + new Date(scoreDate);
     entry.classList.add('list-group-item');
-    document.getElementById('historyContainer').appendChild(entry);
+    HISTORYCONTAINER.appendChild(entry);
   }
 }
-
-sortForm.onchange = sortBoard;
-showBoard();
-sortBoard()
