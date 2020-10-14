@@ -1,4 +1,4 @@
-var names = JSON.parse(localStorage.getItem('names'));
+const NAMES = JSON.parse(localStorage.getItem('names'));
 var nameCount = [];
 var figureEntry, entry, entryText;
 
@@ -7,18 +7,16 @@ window.onload = function(){
 }
 
 function calculateNames(){
-  for (let i = 0; i < 5 && i < names.length; i++) { //loop through last 5 games
-    for (let j = 0; j < names[i].length; j++) { //For every name
-      let playerName = names[i][j]['name'];
-        if (JSON.stringify(nameCount).includes(JSON.stringify(playerName))) { //Check if nameCount alredy has a record of the playerName
-          for (let k = 0; k < nameCount.length; k++) { //For all names in nameCount
-            if (JSON.stringify(nameCount[k]['name']) == JSON.stringify(playerName)) { //Check if nameCount name is the same as the playerName
-              (names[i][j]['correct']) ? nameCount[k]['score'] += 1 : nameCount[k]['score'] += 0;
-            }
+  for (let i = 0; i < 5 && i < NAMES.length; i++) { //loop through last 5 games
+    for (let j = 0; j < NAMES[i].length; j++) { //For every name
+      let playerName = NAMES[i][j]['name'];
+        if (JSON.stringify(nameCount).includes(JSON.stringify(playerName))) { //Check if nameCount already has a record of the playerName
+          findName = nameCount.find(player => player.name == playerName);
+          (NAMES[i][j]['correct']) ? findName['score'] += 1 : findName['score'] += 0;
           }
-        }else{
-          (names[i][j]['correct']) ? nameCount.unshift({name: playerName, score : 1, photo: names[i][j]['photo']})
-          : nameCount.unshift({name: playerName, score: 0, photo: names[i][j]['photo']});
+        else{
+          (NAMES[i][j]['correct']) ? nameCount.unshift({name: playerName, score : 1, photo: NAMES[i][j]['photo']})
+          : nameCount.unshift({name: playerName, score: 0, photo: NAMES[i][j]['photo']});
         }
     }
   }

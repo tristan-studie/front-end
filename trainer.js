@@ -1,30 +1,31 @@
 var smoelen = [
   ["Wessel Keemink", "images/wessel.jpg" ],
- ["Maarten van Garderen", "images/maarten.jpg"],
- ["Thijs ter Horst", "images/thijs.jpg"],
- ["Luuc van der Ent", "images/luuc.jpg"],
- ["Gijs Jorna", "images/gijs.jpg"],
- ["Fabian Plak", "images/fabian.jpg"],
- ["Ewoud Gommans", "images/ewoud.jpg"],
- ["Nimir Abdelaziz", "images/nimir.jpg"],
- ["Gijs van Solkema", "images/gijs2.jpg"],
- ["Wouter ter Maat", "images/wouter.jpg"],
- ["Michaël Parkinson", "images/michael.jpg"],
- ["Robbert Andringa", "images/robbert.jpg"],
- ["Just Dronkers", "images/just.jpg"]];
+  ["Maarten van Garderen", "images/maarten.jpg"],
+  ["Thijs ter Horst", "images/thijs.jpg"],
+  ["Luuc van der Ent", "images/luuc.jpg"],
+  ["Gijs Jorna", "images/gijs.jpg"],
+  ["Fabian Plak", "images/fabian.jpg"],
+  ["Ewoud Gommans", "images/ewoud.jpg"],
+  ["Nimir Abdelaziz", "images/nimir.jpg"],
+  ["Gijs van Solkema", "images/gijs2.jpg"],
+  ["Wouter ter Maat", "images/wouter.jpg"],
+  ["Michaël Parkinson", "images/michael.jpg"],
+  ["Robbert Andringa", "images/robbert.jpg"],
+  ["Just Dronkers", "images/just.jpg"]
+];
 
 const TIMEAMOUNT = localStorage.getItem('time');
 const PHOTOAMOUNT = localStorage.getItem('photo');
 const HIDECORRECT = localStorage.getItem('hideCorrect');
 const LISTNAMES = document.getElementById('nameList');
 const LISTPHOTOS = document.getElementById('photoList');
-var totalMoves = 0, correctMoves = 0;
-var selectedName = "", selectedPhoto = "";
-var nameList = [], smoelenArray = [];
-var nameSelected = false, photoSelected = false;
-var timeTimer, timeObj, listItem, score, dateNow, people, peoples, scoreboard;
-var names = JSON.parse(localStorage.getItem('names'));
-var nameCount = [];
+let totalMoves = 0, correctMoves = 0;
+let selectedName = "", selectedPhoto = "";
+let nameList = [], smoelenArray = [], nameCount = [];
+let nameSelected = false, photoSelected = false;
+let timeTimer, timeObj, listItem, score, dateNow, people, peoples, scoreboard, photoData, findName, nameCorrect;
+let names = JSON.parse(localStorage.getItem('names'));
+
 
 window.onload = function(){
   startTraining();
@@ -36,6 +37,7 @@ window.onload = function(){
 }
 
 function format(minutes, seconds, pureseconds) {
+  let percentage;
   minutes = minutes < 10 ? "0" + minutes : minutes;
   seconds = seconds < 10 ? "0" + seconds : seconds;
   percentage = 100 + ((pureseconds - TIMEAMOUNT) / TIMEAMOUNT) * 100;
@@ -47,32 +49,27 @@ function format(minutes, seconds, pureseconds) {
   }
 }
 
-//STACKOVERFLOW
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
-  // While there remain elements to shuffle...
   while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex); // Pick a remaining element
+    //Double Bitwise NOT Shorthand [Replaced Math.floor() with ~~]
+    randomIndex = ~~(Math.random() * currentIndex);
     currentIndex -= 1;
-    // And swap it with the current element.
     temporaryValue = array[currentIndex];
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
   return array;
 }
-//STACKOVERFLOW END
 
 function calculateNames(){
   for (let i = 0; i < 5 && i < names.length; i++) { //loop through last 5 games
     for (let j = 0; j < names[i].length; j++) { //For every name
       let playerName = names[i][j]['name'];
-        if (JSON.stringify(nameCount).includes(JSON.stringify(playerName))) { //Check if nameCount alredy has a record of the playerName
-          for (let k = 0; k < nameCount.length; k++) { //For all names in nameCount
-            if (JSON.stringify(nameCount[k]['name']) == JSON.stringify(playerName)) { //Check if nameCount name is the same as the playerName
-              (names[i][j]['correct']) ? nameCount[k]['score'] += 1 : nameCount[k]['score'] += 0;
-            }
-          }
+        if (JSON.stringify(nameCount).includes(JSON.stringify(playerName))) { //Check if nameCount already has a record of the playerName
+          findName = nameCount.find(player => player.name == playerName);
+          (names[i][j]['correct']) ? findName['score'] += 1 : findName['score'] += 0;
+
         }else{
           (names[i][j]['correct']) ? nameCount.unshift({name: playerName, score : 1, photo: names[i][j]['photo']})
           : nameCount.unshift({name: playerName, score: 0, photo: names[i][j]['photo']});
@@ -122,8 +119,14 @@ function startTraining(){
 }
 
 function onUserClick(){
-  selectedPhoto.className = "listItem list-group-item list-group-item-action";
-  selectedName.className = "list-group-item list-group-item-action";
+  if (selectedPhoto) {
+    selectedPhoto.className = "listItem list-group-item list-group-item-action";
+
+  }
+  if (selectedName) {
+    selectedName.className = "list-group-item list-group-item-action";
+
+  }
   (this.tagName == "IMG") ? (selectedPhoto = this, photoSelected = true, photoData = selectedPhoto.dataset.photo)
   : (selectedName = this, nameSelected = true);
   this.classList.add('active');
@@ -135,11 +138,8 @@ function onMatchTry(photoData){
     totalMoves++;
     if (photoData == selectedName.innerHTML) {
       correctMoves++;
-      for (let i = 0; i < nameList.length; i++) {
-        if (selectedName.innerHTML == nameList[i]['name']){
-          nameList[i]['correct'] = true;
-        }
-      }
+      nameCorrect = nameList.find(nameCorrect =>  nameCorrect.name == selectedName.innerHTML);
+      nameCorrect['correct'] = true;
       selectedPhoto.classList.add('fade');
       selectedName.classList.add('fade');
       selectedName.removeEventListener("click", onUserClick);
@@ -183,9 +183,7 @@ function TrainerTimer(duration, granularity){
 }
 //Timer for the trainer
 TrainerTimer.prototype.start = function(){
-  if (this.running){
-    return;
-  }
+  if (this.running) return;
   this.running = true;
   var start = Date.now(),
       that = this,
@@ -218,3 +216,5 @@ TrainerTimer.parse = function(seconds){
     'pureseconds': (seconds) | 0
   };
 };
+
+export {shuffle, format, smoelen, TrainerTimer};

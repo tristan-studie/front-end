@@ -5,7 +5,7 @@ var sortSetting, scoreAmount, scoreDate, entry;
 
 //Onload -> check if there are existing scores saved. If found => call sortBoard(); Else => Notify user and redirect to index
 window.onload = function(){
-  (!localStorage.getItem('scores')) ? (alert('No scores saved yet. Use the trainer to save a score.'), window.location.href= "./index.html") : sortBoard();
+  (!localStorage.getItem('audioScores')) ? (alert('No scores saved yet. Use the trainer to save a score.'), window.location.href= "./index.html") : sortBoard();
 }
 
 //When the user changes the sort setting, call sortBoard()
