@@ -1,69 +1,6 @@
 import {shuffle, format, smoelen, TrainerTimer} from './trainer.js';
 
-if(window.speechSynthesis.getVoices().length == 0) {
-	window.speechSynthesis.addEventListener('voiceschanged', function() {
-		textToSpeech();
-	});
-}
-else {
-	textToSpeech();
-}
 
-function textToSpeech() {
-	var available_voices = window.speechSynthesis.getVoices();
-	var dutch_voice = '';
-
-	for(var i=0; i<available_voices.length; i++) {
-		if(available_voices[i].lang === 'nl-NL') {
-			dutch_voice = available_voices[i];
-			break;
-		}
-	}
-	if(dutch_voice === ''){
-		dutch_voice = available_voices[0];
-  }
-}
-
-function recursionSpeak(recursionIndex, n){
-  if (n <= 0) {
-    return 0;
-  }
-  var utter = new SpeechSynthesisUtterance();
-	utter.rate = 1;
-	utter.pitch = 0.5;
-	utter.text = smoelenArray[recursionIndex][0];
-	// utter.voice = dutch_voice;
-	utter.onend = function() {
-	}
-	window.speechSynthesis.speak(utter);
-}
-
-function nextName(){
-  document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
-  LISTPHOTOS.innerHTML = "";
-	smoelenArray = [];
-  shuffle(smoelen);
-for (let i = 0; i < 3 ; i++){
-  smoelenArray.unshift(smoelen[i]);
-}
-// for (let i = 0; i < smoelenArray.length; i++) {
-//   nameList.unshift({name: smoelenArray[i][0], correct: false, photo: smoelenArray[i][1]});
-// }
-
-shuffle(smoelenArray);
-for (let i = 0; i < smoelenArray.length; i++) {
-  listItem = document.createElement('img');
-  listItem.src = smoelenArray[i][1];
-  listItem.dataset.photo = smoelenArray[i][0];
-  listItem.className = "listItem list-group-item list-group-item-action img-fluid";
-  listItem.addEventListener("click", onUserClick);
-  LISTPHOTOS.appendChild(listItem);
-}
-
-	n--;
-  currentName = smoelenArray[recursionIndex][0];
-recursionSpeak(recursionIndex, n);
-}
 
 const TIMEAMOUNT = localStorage.getItem('time');
 const PHOTOAMOUNT = localStorage.getItem('photo');
@@ -106,8 +43,79 @@ function startTraining(){
     LISTPHOTOS.appendChild(listItem);
   }
   currentName = smoelenArray[recursionIndex][0];
-  recursionSpeak(recursionIndex, n);
+  speakFunction(recursionIndex, n);
 }
+
+
+if(window.speechSynthesis.getVoices().length == 0) {
+	window.speechSynthesis.addEventListener('voiceschanged', function() {
+		textToSpeech();
+	});
+}
+else {
+	textToSpeech();
+}
+
+function textToSpeech() {
+	var available_voices = window.speechSynthesis.getVoices();
+	var dutch_voice = '';
+
+	for(var i=0; i<available_voices.length; i++) {
+		if(available_voices[i].lang === 'nl-NL') {
+			dutch_voice = available_voices[i];
+			break;
+		}
+	}
+	if(dutch_voice === ''){
+		dutch_voice = available_voices[0];
+  }
+}
+
+function speakFunction(recursionIndex, n){
+  if (n <= 0) {
+    return 0;
+  }
+  var utter = new SpeechSynthesisUtterance();
+	utter.rate = 1;
+	utter.pitch = 0.5;
+	utter.text = smoelenArray[recursionIndex][0];
+	// utter.voice = dutch_voice;
+	utter.onend = function() {
+	}
+	window.speechSynthesis.speak(utter);
+}
+
+function nextName(){
+
+  document.getElementById('scoreboard').innerHTML = correctMoves + " out of " + totalMoves;
+  LISTPHOTOS.innerHTML = "";
+	smoelenArray = [];
+  shuffle(smoelen);
+for (let i = 0; i < 3 ; i++){
+  smoelenArray.unshift(smoelen[i]);
+}
+
+// for (let i = 0; i < smoelenArray.length; i++) {
+//   nameList.unshift({name: smoelenArray[i][0], correct: false, photo: smoelenArray[i][1]});
+// }
+
+shuffle(smoelenArray);
+n--;
+currentName = smoelenArray[recursionIndex][0];
+speakFunction(recursionIndex, n);
+for (let i = 0; i < smoelenArray.length; i++) {
+  listItem = document.createElement('img');
+  listItem.src = smoelenArray[i][1];
+  listItem.dataset.photo = smoelenArray[i][0];
+  listItem.className = "listItem list-group-item list-group-item-action img-fluid";
+  listItem.addEventListener("click", onUserClick);
+  LISTPHOTOS.appendChild(listItem);
+}
+
+
+}
+
+
 
 function onUserClick(){
   if (selectedPhoto) {
