@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html lang="nl-NL" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="./style.css">
-    <title>Audio Trainer</title>
-  </head>
-  <body>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="progress">
-            <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="100" style="width: 100%"></div>
-          </div>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="./style.css">
+  <title>Audio Trainer</title>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="progress">
+          <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="100" style="width: 100%"></div>
         </div>
       </div>
-      <section class="row text-center">
-        <div class="col-sm-12" id="scoreboard">0 out of 0</div>
-      </section>
-
-      <div class="row">
-        <div class="col">
-          <div id="photoList" class="col-sm-12 d-flex flex-wrap justify-content-around"></div>
-        </div>
-      </div>
-
     </div>
+    <section class="row text-center">
+      <div class="col-sm-12" id="scoreboard">0 out of 0</div>
+    </section>
+
+    <div class="row">
+      <div class="col">
+        <div id="photoList" class="col-sm-12 d-flex flex-wrap justify-content-around"></div>
+      </div>
+    </div>
+
+  </div>
   <script type="module" src="audioTrainer.js"></script>
 
 
-  </body>
+</body>
+
 </html>

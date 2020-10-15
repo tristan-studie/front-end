@@ -6,7 +6,7 @@ var hideForm = document.getElementById('hideCorrect');
 var currentTime, currentPhoto, currentTheme, currentHide;
 
 //Check if settings exist in localStorage, If not => call populateStorage(), Else => call setValue()
-(!localStorage.getItem('time') || !localStorage.getItem('photo') || !localStorage.getItem('themes') || !localStorage.getItem('hideCorrect')) ? populateStorage() : setValue();
+(!localStorage.getItem('time') || !localStorage.getItem('photo') || !localStorage.getItem('themes') || !localStorage.getItem('hideCorrect')) ? populateStorage(): setValue();
 
 //Populate the localStorage with settings
 function populateStorage() {
@@ -18,7 +18,7 @@ function populateStorage() {
 }
 
 //Get the existing settings from the localStorage
-function setValue(){
+function setValue() {
   currentTime = localStorage.getItem('time');
   currentPhoto = localStorage.getItem('photo');
   currentTheme = localStorage.getItem('themes');

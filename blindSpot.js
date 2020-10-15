@@ -23,6 +23,7 @@ function calculateNames(){
   }
   nameCount = nameCount.sort(function(a,b){return a.score - b.score});
   printNames(nameCount);
+  console.log(nameCount);
 }
 
 //Show the names

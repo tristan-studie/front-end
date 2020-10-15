@@ -29,10 +29,11 @@ html[data-theme='dark'] {
   --primary-color: #0f3460;
   --secondary-color: #e94560;
 }
-html[data-theme="darkness"]{
+
+html[data-theme="darkness"] {
   --bg-color: black;
-  --primary-color:black;
-  --secondary-color:black;
+  --primary-color: black;
+  --secondary-color: black;
 }
 
 body {
