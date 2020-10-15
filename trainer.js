@@ -35,7 +35,7 @@ window.onload = function(){
   timeTimer.onTick(format);
   timeTimer.start();
 }
-
+//Format time and countdown timer
 function format(minutes, seconds, pureseconds) {
   let percentage;
   minutes = minutes < 10 ? "0" + minutes : minutes;
@@ -48,7 +48,7 @@ function format(minutes, seconds, pureseconds) {
     window.location.href= "http://localhost/pokebattle/front-end/index.html";
   }
 }
-
+//Shuffle the array
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
   while (0 !== currentIndex) {
@@ -118,6 +118,7 @@ function startTraining(){
   }
 }
 
+//When the user clicks on a trainer element
 function onUserClick(){
   if (selectedPhoto) {
     selectedPhoto.className = "listItem list-group-item list-group-item-action";
@@ -133,6 +134,7 @@ function onUserClick(){
   onMatchTry(photoData);
 }
 
+//If user has valid match try, check match, else, do nothing
 function onMatchTry(photoData){
   if (nameSelected && photoSelected) {
     totalMoves++;
@@ -156,6 +158,8 @@ function onMatchTry(photoData){
   }
 }
 
+
+//Save the score
 function saveScore(){
   savePeople();
   dateNow = new Date();
@@ -170,18 +174,20 @@ function saveScore(){
   }
 }
 
+//Save the people
 function savePeople(){
   (!localStorage.getItem('names')) ? (people = [nameList], localStorage.setItem('names', JSON.stringify(people)))
   : (peoples = JSON.parse(localStorage.getItem('names')), peoples.unshift(nameList), localStorage.setItem('names', JSON.stringify(peoples)));
 }
 
+//Timer for the trainer
 function TrainerTimer(duration, granularity){
   this.duration = duration;
   this.granularity = granularity || 1000;
   this.tickFtns = [];
   this.running = false;
 }
-//Timer for the trainer
+
 TrainerTimer.prototype.start = function(){
   if (this.running) return;
   this.running = true;
@@ -217,4 +223,5 @@ TrainerTimer.parse = function(seconds){
   };
 };
 
+//Export functions
 export {shuffle, format, smoelen, TrainerTimer};

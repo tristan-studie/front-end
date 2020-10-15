@@ -6,6 +6,7 @@ window.onload = function(){
   (!localStorage.getItem('names')) ? (alert("No names saved yet. Use the trainer to save a score"), window.location.href= "./index.html") : calculateNames();
 }
 
+//Calculate the scores for each name
 function calculateNames(){
   for (let i = 0; i < 5 && i < NAMES.length; i++) { //loop through last 5 games
     for (let j = 0; j < NAMES[i].length; j++) { //For every name
@@ -24,6 +25,7 @@ function calculateNames(){
   printNames(nameCount);
 }
 
+//Show the names
 function printNames(nameCount){
   for (let i = 0; i < 3; i++) {
     figureEntry = document.createElement('figure');
